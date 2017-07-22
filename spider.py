@@ -4,7 +4,7 @@ from models import Job
 from settings import QUERY, TOKEN, CHAT_ID, BASE_URL
 import telegram
 
-url = f'{BASE_URL}?limit=5&offset=0&query={QUERY}'
+url = '%s?limit=5&offset=0&query=%s' % (BASE_URL, QUERY)
 
 
 def _save_job(job):

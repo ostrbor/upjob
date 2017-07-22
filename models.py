@@ -20,4 +20,4 @@ class Job(Model):
         description = self.description
         budget = self.budget + ' :dollar:'
         created = self.created
-        return f'*{title}*\n{budget}\n{description}\n_{created}_\n'
+        return '*%s*\n%s\n%s\n_%s_\n' % (title, budget, description, created)

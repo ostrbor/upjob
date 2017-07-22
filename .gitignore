@@ -1,2 +1,4 @@
 /jobs.db
 /settings.py
+*.pyc
+/db/jobs.db

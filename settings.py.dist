@@ -2,3 +2,5 @@ TOKEN = ''
 CHAT_ID = None
 QUERY = ''
 BASE_URL = ''
+DB_FILE = './db/jobs.db'
+HOST_DB_DIR = ''

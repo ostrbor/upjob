@@ -1,13 +1,13 @@
 from peewee import (SqliteDatabase, Model, CharField, DateTimeField,
                     IntegerField)
+from settings import DB_FILE
 
-db = SqliteDatabase('jobs.db')
+db = SqliteDatabase(DB_FILE)
 
 
 class Job(Model):
     job_id = CharField()
     title = CharField()
-
     description = CharField()
     budget = IntegerField()
     created = DateTimeField()
@@ -16,8 +16,10 @@ class Job(Model):
         database = db
 
     def to_text(self):
-        title = self.title
+        if self.budget:
+            title = f'{self.title} ({self.budget}$)'
+        else:
+            title = self.title
         description = self.description
-        budget = self.budget + ' :dollar:'
         created = self.created
-        return '*%s*\n%s\n%s\n_%s_\n' % (title, budget, description, created)
+        return f'*{title}*\n{description}\n_{created}_\n' + '-' * 10

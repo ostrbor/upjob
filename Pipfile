@@ -3,7 +3,7 @@ url = "https://pypi.python.org/simple"
 verify_ssl = true
 
 [packages]
-ipython = "*"
 requests = "*"
 peewee = "*"
 python-telegram-bot = "*"
+Fabric3 = "*"

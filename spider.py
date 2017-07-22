@@ -1,10 +1,17 @@
+import os
 import requests
 import time
-from models import Job
-from settings import QUERY, TOKEN, CHAT_ID, BASE_URL
+from models import db, Job
+from settings import QUERY, TOKEN, CHAT_ID, BASE_URL, DB_FILE
 import telegram
 
-url = '%s?limit=5&offset=0&query=%s' % (BASE_URL, QUERY)
+url = f'{BASE_URL}?limit=5&offset=0&query={QUERY}'
+
+
+def init_db():
+    if not os.path.exists(DB_FILE):
+        db.connect()
+        db.create_table(Job)
 
 
 def _save_job(job):
@@ -29,6 +36,7 @@ def process(resp, bot):
 
 
 if __name__ == '__main__':
+    init_db()
     while True:
         bot = telegram.Bot(TOKEN)
         resp = requests.get(url).json()

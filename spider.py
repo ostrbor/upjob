@@ -2,10 +2,13 @@ import os
 import requests
 import time
 from models import db, Job
-from settings import QUERY, TOKEN, CHAT_ID, BASE_URL, DB_FILE
+from settings import QUERY, TOKEN, CHAT_ID, BASE_URL, DB_FILE, RESOURCES_DIR
 import telegram
+import logging
 
 url = f'{BASE_URL}?limit=5&offset=0&query={QUERY}'
+DELAY = 60
+logging.basicConfig(filename=os.path.join(RESOURCES_DIR, 'spider.log'))
 
 
 def init_db():
@@ -31,8 +34,11 @@ def process(resp, bot):
             continue
         else:
             job = _save_job(job)
-            bot.send_message(
-                chat_id=CHAT_ID, text=job.to_text(), parse_mode='Markdown')
+            try:
+                bot.send_message(
+                    chat_id=CHAT_ID, text=job.to_text(), parse_mode='Markdown')
+            except Exception:
+                logging.exception()
 
 
 if __name__ == '__main__':
@@ -42,4 +48,4 @@ if __name__ == '__main__':
         resp = requests.get(url).json()
         if resp:
             process(resp, bot)
-        time.sleep(25)
+        time.sleep(DELAY)

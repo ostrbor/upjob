@@ -1,5 +1,5 @@
 from fabric.api import local, task
-from settings import HOST_DB_DIR
+from settings import RESOURCES_DIR
 
 
 @task
@@ -9,4 +9,4 @@ def build():
 
 @task
 def run():
-    local(f'docker run -v {HOST_DB_DIR}:/usr/src/app/db upjob')
+    local(f'docker run -v {RESOURCES_DIR}:/usr/src/app/db upjob')

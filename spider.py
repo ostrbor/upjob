@@ -2,13 +2,13 @@ import os
 import requests
 import time
 from models import db, Job
-from settings import QUERY, TOKEN, CHAT_ID, BASE_URL, DB_FILE, RESOURCES_DIR
+from settings import QUERY, TOKEN, CHAT_ID, BASE_URL, DB_FILE
 import telegram
 import logging
 
 url = f'{BASE_URL}?limit=5&offset=0&query={QUERY}'
 DELAY = 60
-logging.basicConfig(filename=os.path.join(RESOURCES_DIR, 'spider.log'))
+logging.basicConfig(filename=os.path.join('./resources', 'spider.log'))
 
 
 def init_db():
